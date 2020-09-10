@@ -88,13 +88,18 @@ h3 {
   margin-left:40px;
   display: inline-block;
   background:#ffe745;
-
   border-radius: 15px;
-
-
   font : 18px Caecilia lt; color:#212529;
-  
+  cursor: pointer;
 }
+
+#player:hover{
+  opacity:50%;
+}
+#player:active{
+     opacity: 25%;
+}
+
 #Play{
   display: inline-block;
   width:30px;
