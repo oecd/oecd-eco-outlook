@@ -25,7 +25,7 @@
     </head>
 
     <body>
-    <h1>Confidence could boost the recovery</h1>
+    <h1>Impact of consumer and business confidence on GDP forecasts</h1>
     <h2>World GDP, index 2019-Q4=100</h2>
     <div id="player"><img id="Play" src="img/triangle-right.svg" alt="Play button"> Play the story</div>
     <img id="Share" src="img/share.svg" alt="share">
@@ -69,7 +69,7 @@
     var divMap = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0); 
-    var color = ["#8EA4B1", "#d61e25","#ff7363", "#7d327e", "#37003c",  "#a154a1", "#719E24"];
+    var color = ["#8EA4B1", "#f63ba8","#ff9cfb", "#7d327e", "#37003c",  "#a154a1", "#719E24"];
 
     var margin = { top: 30, right: 50, bottom: 30, left: 40 };
 
@@ -422,7 +422,7 @@
             const annotationUp = [
                 {
                     note: {
-                        label: "With faster confidence improvement"
+                        label: "With stronger confidence"
                     },
                     x: x(dateParser("2021-Q1")),
                     y: y(annotationMark[0].upsideScenario),
@@ -475,6 +475,27 @@
                 .append("g")
                 .attr("class", "labelLine")
                 .call(makeAnnotationCurrent)
+
+            //adding uncertainty note
+            const annotationUncertainty = [
+                {
+                    note: {
+                        label: "Uncertainty area"
+                    },
+                    x: x(dateParser("2021-Q4")),
+                    y: y((parseFloat(annotationMark[0].upsideScenario) + parseFloat(annotationMark[0].downsideScenario)) / 1.975),
+                    dy: 100,
+                    dx: -0.5
+                }
+            ]
+
+            // Add annotation to the chart
+            const makeAnnotationUncertainty = d3.annotation()
+                .annotations(annotationUncertainty)
+            scenarioSVG
+                .append("g")
+                .attr("class", "labelLine")
+                .call(makeAnnotationUncertainty)
 
              document.getElementById('explainer').innerHTML = "";
             
@@ -956,7 +977,7 @@
         const annotationUp = [
             {
                 note: {
-                    label: "With faster confidence improvement"
+                    label: "With stronger confidence"
                 },
                 x: x(dateParser("2021-Q1")),
                 y: y(annotationMark[0].upsideScenario),
@@ -977,6 +998,10 @@
                 dx: 20
             }
         ]
+
+
+
+
         // Add annotation to the chart
         const makeAnnotation2019 = d3.annotation()
             .annotations(annotation2019)
@@ -1009,6 +1034,27 @@
             .append("g")
             .attr("class", "labelLine")
             .call(makeAnnotationCurrent)
+//adding uncertainty note
+        const annotationUncertainty = [
+            {
+                note: {
+                    label: "Uncertainty area"
+                },
+                x: x(dateParser("2021-Q4")),
+                y: y((parseFloat(annotationMark[0].upsideScenario) + parseFloat(annotationMark[0].downsideScenario)) / 1.975),
+                dy: 100,
+                dx: -0.5
+            }
+        ]
+
+        // Add annotation to the chart
+        const makeAnnotationUncertainty = d3.annotation()
+            .annotations(annotationUncertainty)
+        scenarioSVG
+            .append("g")
+            .attr("class", "labelLine")
+            .call(makeAnnotationUncertainty)
+
     }
 
 
