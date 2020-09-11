@@ -523,7 +523,76 @@
             .attr("class", "oldforecast")
             .attrs({ x: 0, y: 0, width: width, height: height, fill: '#dce2e7' })
             .attr("opacity",0.75)
-        
+
+        scenarioSVG
+            .append("path")
+            .attr("fill", "none"/*"#8DCD79"*/)
+            .attr("stroke", function (d) { return color[0] })
+            .attr("stroke-width", "5px")
+            // .attr("opacity", function () { if (k == 0) return 0.1; else return 1; })
+            .attr("class", "lineContext oldforecast")
+            //.attr("id", function (d) { return "doubleHit" + i; })
+            .attr("d", function (d) {
+                return d3.line()//area
+                    .x(function (d) { return x(dateParser(d.TIME)); })
+                    // .y0(y(0))
+                    .y(function (d) { return y(parseFloat(d.forecast2019)); })
+                    (allScenario.filter(function (d) { return dateParser(d.TIME) <= dateParser(startForecast); }))
+            }).transition()
+            .duration(0).attrTween("stroke-dasharray", tweenDash)
+
+        scenarioSVG
+            .append("path")
+            .attr("class", "oldforecast")
+            .attr("fill", "none")
+            .attr("stroke", function (d) { return color[0] })
+            .attr("stroke-width", "5px")
+            .attr("opacity", 0.5)
+            .attr("d", function (d) {
+                return d3.line()//area
+                    .x(function (d) { return x(dateParser(d.TIME)); })
+                    // .y0(y(0))
+                    .y(function (d) { return y(parseFloat(d.forecast2019)); })
+                    (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(startForecast); }))
+            })
+            .transition()
+            .duration(0)
+            .attrTween("stroke-dasharray", tweenDash)
+
+        scenarioSVG
+            .append("path")
+            .attr("fill", "none")
+            .attr("stroke-width", "5px")
+            .attr("class", "forecast oldforecast")
+            .transition().delay(0)
+            .attr("d", function (d) {
+                return d3.line()//area
+                    .x(function (d) { return x(dateParser(d.TIME)); })
+                    // .y0(y(0))
+                    .y(function (d) { return y(parseFloat(d.forecast2019)); })
+                    (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(startForecast); }))
+            })
+
+        const annotation2019 = [
+            {
+                note: {
+                    label: "November 2019 forecasts"
+                },
+                x: x(dateParser("2020-Q1")),
+                y: y(annotationMark2019[0].forecast2019),
+                dy: -25,
+                dx: -5
+            }
+        ]
+
+        // Add annotation to the chart
+        const makeAnnotation2019 = d3.annotation()
+            .annotations(annotation2019)
+        scenarioSVG
+            .append("g")
+            .attr("class", "oldforecast")
+            .call(makeAnnotation2019)
+            
         d3.selectAll(".labelLine")
             .attr("opacity", 0)
     }
