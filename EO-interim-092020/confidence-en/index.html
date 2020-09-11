@@ -304,7 +304,7 @@
                 .on("end", drawDownSideScenario)
 
 
-            document.getElementById('explainer').innerHTML = "The red line shows what the OECD now forecasts.";
+            document.getElementById('explainer').innerHTML = "The red line shows how world GDP has evolved following the COVID-crisis and what the OECD now forecasts.";
             
 
         } 
@@ -422,7 +422,7 @@
             const annotationUp = [
                 {
                     note: {
-                        label: "With Faster confidence improvement"
+                        label: "With faster confidence improvement"
                     },
                     x: x(dateParser("2021-Q1")),
                     y: y(annotationMark[0].upsideScenario),
@@ -592,7 +592,7 @@
             .append("g")
             .attr("class", "oldforecast")
             .call(makeAnnotation2019)
-            
+
         d3.selectAll(".labelLine")
             .attr("opacity", 0)
     }
