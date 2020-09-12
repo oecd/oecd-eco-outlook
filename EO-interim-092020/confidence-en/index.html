@@ -25,7 +25,7 @@
     </head>
 
     <body>
-    <h1>Impact of consumer and business confidence on GDP forecasts</h1>
+    <h1>Improved consumer and business confidence would boost economic outlook</h1>
     <h2>World GDP, index 2019-Q4=100</h2>
     <div id="player"><img id="Play" src="img/triangle-right.svg" alt="Play button"> Play the story</div>
     <img id="Share" src="img/share.svg" alt="share">
@@ -257,7 +257,7 @@
 
         function drawCurrentProj(){
             //Draw the uncertainty area/invisible at first made visible later
-            scenarioSVG
+            /*scenarioSVG
                 .append("path")
                 .attr("class", "forecast")
                 .attr("id", "uncertaintyArea")
@@ -270,7 +270,7 @@
                         .y0(function (d) { return y(parseFloat(d.downsideScenario)); })
                         .y1(function (d) { return y(parseFloat(d.upsideScenario)); })
                         (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(dashedStartForecast); }))
-                })
+                })*/
 
             scenarioSVG
                 .append("path")
@@ -490,12 +490,12 @@
             ]
 
             // Add annotation to the chart
-            const makeAnnotationUncertainty = d3.annotation()
+         /*   const makeAnnotationUncertainty = d3.annotation()
                 .annotations(annotationUncertainty)
             scenarioSVG
                 .append("g")
                 .attr("class", "labelLine")
-                .call(makeAnnotationUncertainty)
+                .call(makeAnnotationUncertainty)*/
 
              document.getElementById('explainer').innerHTML = "";
             
@@ -817,7 +817,7 @@
             .attrTween("stroke-dasharray", tweenDash)
 
 
-        scenarioSVG
+      /*  scenarioSVG
             .append("path")
             .attr("class", "forecast")
             .attr("id", "uncertaintyArea")
@@ -830,7 +830,8 @@
                     .y0(function (d) { return y(parseFloat(d.downsideScenario)); })
                     .y1(function (d) { return y(parseFloat(d.upsideScenario)); })
                     (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(dashedStartForecast); }))
-            })
+            })*/
+        
         scenarioSVG
             .append("path")
             .attr("fill", "none")
@@ -845,7 +846,7 @@
                     (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(startForecast); }))
             })
 
-        scenarioSVG
+        /*scenarioSVG
             .append("path")
             .attr("class", "forecast")
             .attr("id", "uncertaintyArea")
@@ -858,7 +859,7 @@
                     .y0(function (d) { return y(parseFloat(d.downsideScenario)); })
                     .y1(function (d) { return y(parseFloat(d.upsideScenario)); })
                     (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(dashedStartForecast); }))
-            })
+            })*/
 
         scenarioSVG
             .append("path")
@@ -1048,12 +1049,12 @@
         ]
 
         // Add annotation to the chart
-        const makeAnnotationUncertainty = d3.annotation()
+      /*  const makeAnnotationUncertainty = d3.annotation()
             .annotations(annotationUncertainty)
         scenarioSVG
             .append("g")
             .attr("class", "labelLine")
-            .call(makeAnnotationUncertainty)
+            .call(makeAnnotationUncertainty)*/
 
     }
 
