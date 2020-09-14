@@ -500,7 +500,23 @@
                 .call(makeAnnotationUncertainty)*/
 
 
+            // Add you are here line
+            const annotationPosition = [{
+                note: {
+                    label: "We are here",
+                },
+                type: d3.annotationCalloutCircle,
+                subject: { radius: 10 },
+                x: x(dateParser("2020-Q3")), y: y(annotationMarkPosition[0].currentProjection),
+                dx: -15
+            }]
 
+            const makeAnnotationPosition = d3.annotation()
+                .annotations(annotationPosition)
+            scenarioSVG
+                .append("g")
+                .attr("class", "labelLine")
+                .call(makeAnnotationPosition)
 
              document.getElementById('explainer').innerHTML = "";
             
