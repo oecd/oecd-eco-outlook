@@ -25,7 +25,7 @@
     </head>
 
     <body>
-    <h1>Improved consumer and business confidence would boost economic outlook</h1>
+    <h1>OECD Economic Outlook September 2020</h1>
     <h2>World GDP, index 2019-Q4=100</h2>
     <div id="player"><img id="Play" src="img/triangle-right.svg" alt="Play button"> Play the story</div>
     <img id="Share" src="img/share.svg" alt="share">
@@ -140,6 +140,7 @@
         allScenario = scenarioData;
         annotationMark= scenarioData.filter(function (d) { return d.TIME == "2021-Q1" ; });
         annotationMark2019 = scenarioData.filter(function (d) { return  d.TIME == "2020-Q1"; });
+        annotationMarkPosition = scenarioData.filter(function (d) { return d.TIME == "2020-Q3"; });
 
         renderChart();
 
@@ -490,12 +491,16 @@
             ]
 
             // Add annotation to the chart
+
          /*   const makeAnnotationUncertainty = d3.annotation()
                 .annotations(annotationUncertainty)
             scenarioSVG
                 .append("g")
                 .attr("class", "labelLine")
                 .call(makeAnnotationUncertainty)*/
+
+
+
 
              document.getElementById('explainer').innerHTML = "";
             
@@ -1035,7 +1040,7 @@
             .append("g")
             .attr("class", "labelLine")
             .call(makeAnnotationCurrent)
-//adding uncertainty note
+        //adding uncertainty note
         const annotationUncertainty = [
             {
                 note: {
@@ -1049,12 +1054,30 @@
         ]
 
         // Add annotation to the chart
-      /*  const makeAnnotationUncertainty = d3.annotation()
+        /*  const makeAnnotationUncertainty = d3.annotation()
             .annotations(annotationUncertainty)
         scenarioSVG
             .append("g")
             .attr("class", "labelLine")
             .call(makeAnnotationUncertainty)*/
+
+        // Add you are here line
+        const annotationPosition = [{
+                note: {
+                    label: "We are here",
+                },
+                type: d3.annotationCalloutCircle,
+                subject: { radius: 10 },
+                x: x(dateParser("2020-Q3")), y: y(annotationMarkPosition[0].currentProjection) ,
+                dx: -15
+            }]
+
+        const makeAnnotationPosition = d3.annotation()
+            .annotations(annotationPosition)
+        scenarioSVG
+            .append("g")
+            .attr("class", "labelLine")
+            .call(makeAnnotationPosition)
 
     }
 
