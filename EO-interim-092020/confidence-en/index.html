@@ -69,7 +69,7 @@
     var divMap = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0); 
-    var color = ["#8EA4B1", "#f63ba8","#ff9cfb", "#7d327e", "#37003c",  "#a154a1", "#719E24"];
+    var color = ["#8EA4B1", "#f63ba8","#ff9cfb", "#c777c6", "#37003c",  "#a154a1", "#719E24"];
 
     var margin = { top: 30, right: 50, bottom: 30, left: 40 };
 
@@ -250,7 +250,7 @@
                 .on("end", drawCurrentProj)
 
    
-            document.getElementById('explainer').innerHTML = "This is the evolution of the world GDP as the OECD anticipated it back in November 2019.<br>The Covid-19 crisis has changed everything";
+            document.getElementById('explainer').innerHTML = "This is the evolution of the world GDP as the OECD anticipated it back in November 2019. The Covid-19 crisis has changed everything";
          
 
         }
@@ -410,7 +410,7 @@
             const annotationDown = [
                 {
                     note: {
-                        label: "With weaker confidence"
+                        label: "Downside scenario"
                         
                     },
                     x: x(dateParser("2021-Q1")),
@@ -422,7 +422,7 @@
             const annotationUp = [
                 {
                     note: {
-                        label: "With stronger confidence"
+                        label: "Upside scenarion"
                     },
                     x: x(dateParser("2021-Q1")),
                     y: y(annotationMark[0].upsideScenario),
@@ -543,7 +543,7 @@
             .append("rect")
             .attr("class", "oldforecast")
             .attrs({ x: 0, y: 0, width: width, height: height, fill: '#dce2e7' })
-            .attr("opacity",0.75)
+            .attr("opacity",0.8)
 
         scenarioSVG
             .append("path")
@@ -966,7 +966,7 @@
         const annotationDown = [
             {
                 note: {
-                    label: "With weaker confidence"
+                    label: "Downside scenario"
 
                 },
                 x: x(dateParser("2021-Q1")),
@@ -978,7 +978,7 @@
         const annotationUp = [
             {
                 note: {
-                    label: "With stronger confidence"
+                    label: "Upside scenario"
                 },
                 x: x(dateParser("2021-Q1")),
                 y: y(annotationMark[0].upsideScenario),
