@@ -25,12 +25,12 @@
     </head>
 
     <body>
-    <h1>OECD Economic Outlook September 2020</h1>
-    <h2>World GDP, index 2019-Q4=100</h2>
-    <div id="player"><img id="Play" src="img/triangle-right.svg" alt="Play button"> Play the story</div>
+    <h1>Perspectives économiques de l'OCDE, septembre 2020</h1>
+    <h2>PIB mondial, indice 2019-Q4=100</h2>
+    <div id="player"><img id="Play" src="img/triangle-right.svg" alt="Play button"> Voir l’animation</div>
     <img id="Share" src="img/share.svg" alt="share">
     <div id="switchHolder">
-        <id id="sliderText">Compare with June forecasts:</id>
+        <id id="sliderText">Comparer avec les prévisions de juin :</id>
         <label class="switch">
             <input id="switchID" type="checkbox" >
             <span class="slider round"></span>
@@ -39,16 +39,17 @@
     <br/>
     <div id="scenario" alt=""></div>
     <div id="explainer"></div>
-    <div id="source" class="source">Source: <a class="source" href="https://doi.org/10.1787/eo-data-en" target="_blank">OECD (2020), "OECD Economic Outlook, Interim Report September 2020", OECD Economic Outlook: Statistics and Projections (database)</a>. </div>
+    <div id="source" class="source">Sources: <a class="source" href="https://doi.org/10.1787/eo-data-en" target="_blank">OOCDE (2020), "Perspectives économiques de l'OCDE, Rapport intermédiaire, septembre 2020", Perspectives économiques de
+    l'OCDE : Statistiques et projections (base de données)</a>. </div>
     <div id="shareLink">
         <div id="shutterholdertracker">
             <img id="shuttershare" src="img/cross.svg">
             <div id="trackersText">
-                <b>Copy link:</b><Br />
-                <span>https://oecd.github.io/oecd-eco-outlook/EO-interim-092020/confidence-en/</span><Br />
-                <b>Embed link:</b><Br />
+                <b>Copier le lien :</b><Br />
+                <span>https://oecd.github.io/oecd-eco-outlook/EO-interim-092020/confidence-fr/</span><Br />
+                <b>Intégrer le lien :</b><Br />
                 <textarea
-                    readonly><iframe src="https://oecd.github.io/oecd-eco-outlook/EO-interim-092020/confidence-en//" width="100%" height="500px" style="border:none;"></iframe></textarea>
+                    readonly><iframe src="https://oecd.github.io/oecd-eco-outlook/EO-interim-092020/confidence-fr/" width="100%" height="500px" style="border:none;"></iframe></textarea>
     
             </div>
         </div>
@@ -251,7 +252,7 @@
                 .on("end", drawCurrentProj)
 
    
-            document.getElementById('explainer').innerHTML = "This is the evolution of the world GDP as the OECD anticipated it back in November 2019. The Covid-19 crisis has changed everything";
+            document.getElementById('explainer').innerHTML = "Voici l'évolution du PIB mondial telle que l'OCDE l'avait anticipée en novembre 2019. La crise du COVID-19 a tout changé.";
          
 
         }
@@ -305,7 +306,7 @@
                 .on("end", drawDownSideScenario)
 
 
-            document.getElementById('explainer').innerHTML = "This pink line shows how world GDP has evolved following the COVID-crisis and how the OECD anticipates it growing.";
+            document.getElementById('explainer').innerHTML = "Cette ligne rose montre comment le PIB mondial a évolué suite à la crise du COVID et quelles sont les prévisions de croissance du PIB de l’OCDE.";
             
 
         } 
@@ -345,7 +346,7 @@
 
                 .on("end", drawUpsideScenario)
             
-            document.getElementById('explainer').innerHTML = "But a stronger resurgence of the virus, or more stringent lockdowns could strongly impact global growth in 2021.";
+            document.getElementById('explainer').innerHTML = "Mais une résurgence plus forte du virus, ou des mesures de confinement plus strictes pourraient avoir un impact important sur la croissance mondiale en 2021.";
             
 
         }
@@ -386,7 +387,7 @@
 
            
 
-            document.getElementById('explainer').innerHTML = "If the threat from the virus fades more quickly than expected, improved consumer confidence could boost global activity sharply in 2021.";
+            document.getElementById('explainer').innerHTML = "Si la menace du virus s'estompe plus rapidement que prévu, une confiance accrue des consommateurs pourrait fortement stimuler l'activité mondiale en 2021.";
 
 
         } 
@@ -400,7 +401,7 @@
             const annotation2019 = [
                 {
                     note: {
-                        label: "November 2019 forecasts"
+                        label: "Prévisions de novembre 2019"
                     },
                     x: x(dateParser("2020-Q1")),
                     y: y(annotationMark2019[0].forecast2019),
@@ -411,7 +412,7 @@
             const annotationDown = [
                 {
                     note: {
-                        label: "Downside scenario"
+                        label: "Scénario à la baisse"
                         
                     },
                     x: x(dateParser("2021-Q1")),
@@ -423,7 +424,7 @@
             const annotationUp = [
                 {
                     note: {
-                        label: "Upside scenario"
+                        label: "Scénario à la hausse"
                     },
                     x: x(dateParser("2021-Q1")),
                     y: y(annotationMark[0].upsideScenario),
@@ -436,7 +437,7 @@
             const annotationCurrent = [
                 {
                     note: {
-                        label: "Current forecasts"
+                        label: "Prévisions actuelles"
                     },
                     x: x(dateParser("2021-Q1")),
                     y: y(annotationMark[0].currentProjection),
@@ -503,7 +504,7 @@
             // Add you are here line
             const annotationPosition = [{
                 note: {
-                    label: "We are here",
+                    label: "Nous sommes ici",
                 },
                 type: d3.annotationCalloutCircle,
                 subject: { radius: 10 },
@@ -618,7 +619,7 @@
         const annotation2019 = [
             {
                 note: {
-                    label: "November 2019 forecasts"
+                    label: "Prévisions de novembre 2019"
                 },
                 x: x(dateParser("2020-Q1")),
                 y: y(annotationMark2019[0].forecast2019),
@@ -677,7 +678,7 @@
         const annotationSingle = [
             {
                 note: {
-                    label: "Single-hit scenario"
+                    label: "Scénario du choc unique"
                 },
                 x: x(dateParser("2021-Q1")),
                 y: y(annotationMark[0].singleHit),
@@ -732,7 +733,7 @@
          const annotationDouble = [
             {
                 note: {
-                    label: "Double-hit scenario"
+                    label: "Scénario du double choc"
                 },
                 x: x(dateParser("2021-Q1")),
                 y: y(annotationMark[0].doubleHit),
@@ -976,7 +977,7 @@
         const annotation2019 = [
             {
                 note: {
-                    label: "November 2019 forecasts"
+                    label: "Prévisions de novembre 2019"
                 },
                 x: x(dateParser("2020-Q1")),
                 y: y(annotationMark2019[0].forecast2019),
@@ -987,7 +988,7 @@
         const annotationDown = [
             {
                 note: {
-                    label: "Downside scenario"
+                    label: "Scénario à la baisse"
 
                 },
                 x: x(dateParser("2021-Q1")),
@@ -999,7 +1000,7 @@
         const annotationUp = [
             {
                 note: {
-                    label: "Upside scenario"
+                    label: "Scénario à la hausse"
                 },
                 x: x(dateParser("2021-Q1")),
                 y: y(annotationMark[0].upsideScenario),
@@ -1012,7 +1013,7 @@
         const annotationCurrent = [
             {
                 note: {
-                    label: "Current forecasts"
+                    label: "Prévisions actuelles"
                 },
                 x: x(dateParser("2021-Q1")),
                 y: y(annotationMark[0].currentProjection),
@@ -1080,7 +1081,7 @@
         // Add you are here line
         const annotationPosition = [{
                 note: {
-                    label: "We are here",
+                    label: "Nous sommes ici",
                 },
                 type: d3.annotationCalloutCircle,
                 subject: { radius: 10 },
