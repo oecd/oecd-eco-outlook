@@ -25,12 +25,12 @@
     </head>
 
     <body>
-    <h1>Improved consumer and business confidence would boost economic outlook</h1>
-    <h2>World GDP, index 2019-Q4=100</h2>
-    <div id="player"><img id="Play" src="img/triangle-right.svg" alt="Play button"> Play the story</div>
+    <h1>OECD Economic Outlook September 2020</h1>
+    <h2>PIB mundial, índice 4T-2019=100</h2>
+    <div id="player"><img id="Play" src="img/triangle-right.svg" alt="Play button"> Reproducir</div>
     <img id="Share" src="img/share.svg" alt="share">
     <div id="switchHolder">
-        <id id="sliderText">Compare with June forecasts:</id>
+        <id id="sliderText">Comparar con las previsiones de junio :</id>
         <label class="switch">
             <input id="switchID" type="checkbox" >
             <span class="slider round"></span>
@@ -39,16 +39,16 @@
     <br/>
     <div id="scenario" alt=""></div>
     <div id="explainer"></div>
-    <div id="source" class="source">Source: <a class="source" href="https://doi.org/10.1787/eo-data-en" target="_blank">OECD (2020), "OECD Economic Outlook, Interim Report September 2020", OECD Economic Outlook: Statistics and Projections (database)</a>. </div>
+    <div id="source" class="source">Fuente: <a class="source" href="https://doi.org/10.1787/eo-data-en" target="_blank">OECD (2020), "OECD Economic Outlook, Interim Report September 2020", OECD Economic Outlook: Statistics and Projections (database)</a>. </div>
     <div id="shareLink">
         <div id="shutterholdertracker">
             <img id="shuttershare" src="img/cross.svg">
             <div id="trackersText">
-                <b>Copy link:</b><Br />
-                <span>https://oecd.github.io/oecd-eco-outlook/EO-interim-092020/confidence-en/</span><Br />
-                <b>Embed link:</b><Br />
+                <b>Copiar link:</b><Br />
+                <span>https://oecd.github.io/oecd-eco-outlook/EO-interim-092020/confidence-es/</span><Br />
+                <b>Incrustar link:</b><Br />
                 <textarea
-                    readonly><iframe src="https://oecd.github.io/oecd-eco-outlook/EO-interim-092020/confidence-en//" width="100%" height="500px" style="border:none;"></iframe></textarea>
+                    readonly><iframe src="https://oecd.github.io/oecd-eco-outlook/EO-interim-092020/confidence-es/" width="100%" height="500px" style="border:none;"></iframe></textarea>
     
             </div>
         </div>
@@ -69,7 +69,7 @@
     var divMap = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0); 
-    var color = ["#8EA4B1", "#f63ba8","#ff9cfb", "#7d327e", "#37003c",  "#a154a1", "#719E24"];
+    var color = ["#8EA4B1", "#f63ba8","#ff9cfb", "#c777c6", "#37003c",  "#a154a1", "#719E24"];
 
     var margin = { top: 30, right: 50, bottom: 30, left: 40 };
 
@@ -140,6 +140,7 @@
         allScenario = scenarioData;
         annotationMark= scenarioData.filter(function (d) { return d.TIME == "2021-Q1" ; });
         annotationMark2019 = scenarioData.filter(function (d) { return  d.TIME == "2020-Q1"; });
+        annotationMarkPosition = scenarioData.filter(function (d) { return d.TIME == "2020-Q3"; });
 
         renderChart();
 
@@ -173,13 +174,13 @@
 
                     // return appropriate quarter for that month
                     if (mon <= 2) {
-                        return yr + "-Q1";
+                        return "1T-" + yr;
                     } else if (mon <= 5) {
-                        return yr + "-Q2";
+                        return "2T-" + yr;
                     } else if (mon <= 8) {
-                        return yr + "-Q3";
+                        return "3T-" + yr;
                     } else {
-                        return yr + "-Q4";
+                        return "4T-" + yr;
                     }
                 }));
 
@@ -250,7 +251,7 @@
                 .on("end", drawCurrentProj)
 
    
-            document.getElementById('explainer').innerHTML = "This is the evolution of the world GDP as the OECD anticipated it back in November 2019.<br>The Covid-19 crisis has changed everything";
+            document.getElementById('explainer').innerHTML = "Evolución del PIB mundial tal y como la OCDE la anticipó en noviembre de 2019. La crisis de COVID - 19 ha cambiado todo.";
          
 
         }
@@ -304,7 +305,7 @@
                 .on("end", drawDownSideScenario)
 
 
-            document.getElementById('explainer').innerHTML = "This pink line shows how world GDP has evolved following the COVID-crisis and how the OECD anticipates it growing.";
+            document.getElementById('explainer').innerHTML = "La línea rosa muestra cómo ha evolucionado el PIB mundial tras la crisis del COVID-19 y cómo la OCDE prevé su crecimiento.";
             
 
         } 
@@ -344,7 +345,7 @@
 
                 .on("end", drawUpsideScenario)
             
-            document.getElementById('explainer').innerHTML = "But a stronger resurgence of the virus, or more stringent lockdowns could strongly impact global growth in 2021.";
+            document.getElementById('explainer').innerHTML = "Pero un rebrote más fuerte del virus o confinamientos más estrictos podrían tener un fuerte impacto en el crecimiento global en 2021.";
             
 
         }
@@ -385,7 +386,7 @@
 
            
 
-            document.getElementById('explainer').innerHTML = "If the threat from the virus fades more quickly than expected, improved consumer confidence could boost global activity sharply in 2021.";
+            document.getElementById('explainer').innerHTML = "Si la amenaza del virus se desvanece más rápidamente de lo esperado, la mejora de la confianza de los consumidores podría impulsar la actividad mundial de forma considerable en 2021.";
 
 
         } 
@@ -399,7 +400,7 @@
             const annotation2019 = [
                 {
                     note: {
-                        label: "November 2019 forecasts"
+                        label: "Previsiones de noviembre 2019"
                     },
                     x: x(dateParser("2020-Q1")),
                     y: y(annotationMark2019[0].forecast2019),
@@ -410,7 +411,7 @@
             const annotationDown = [
                 {
                     note: {
-                        label: "With weaker confidence"
+                        label: "Escenario a la baja"
                         
                     },
                     x: x(dateParser("2021-Q1")),
@@ -422,7 +423,7 @@
             const annotationUp = [
                 {
                     note: {
-                        label: "With stronger confidence"
+                        label: "Escenario al alza"
                     },
                     x: x(dateParser("2021-Q1")),
                     y: y(annotationMark[0].upsideScenario),
@@ -435,7 +436,7 @@
             const annotationCurrent = [
                 {
                     note: {
-                        label: "Current forecasts"
+                        label: "Previsiones actuales"
                     },
                     x: x(dateParser("2021-Q1")),
                     y: y(annotationMark[0].currentProjection),
@@ -490,12 +491,32 @@
             ]
 
             // Add annotation to the chart
+
          /*   const makeAnnotationUncertainty = d3.annotation()
                 .annotations(annotationUncertainty)
             scenarioSVG
                 .append("g")
                 .attr("class", "labelLine")
                 .call(makeAnnotationUncertainty)*/
+
+
+            // Add you are here line
+            const annotationPosition = [{
+                note: {
+                    label: "Estamos aquí",
+                },
+                type: d3.annotationCalloutCircle,
+                subject: { radius: 10 },
+                x: x(dateParser("2020-Q3")), y: y(annotationMarkPosition[0].currentProjection),
+                dx: -15
+            }]
+
+            const makeAnnotationPosition = d3.annotation()
+                .annotations(annotationPosition)
+            scenarioSVG
+                .append("g")
+                .attr("class", "labelLine")
+                .call(makeAnnotationPosition)
 
              document.getElementById('explainer').innerHTML = "";
             
@@ -543,7 +564,7 @@
             .append("rect")
             .attr("class", "oldforecast")
             .attrs({ x: 0, y: 0, width: width, height: height, fill: '#dce2e7' })
-            .attr("opacity",0.75)
+            .attr("opacity",0.8)
 
         scenarioSVG
             .append("path")
@@ -597,7 +618,7 @@
         const annotation2019 = [
             {
                 note: {
-                    label: "November 2019 forecasts"
+                    label: "Previsiones de noviembre 2019"
                 },
                 x: x(dateParser("2020-Q1")),
                 y: y(annotationMark2019[0].forecast2019),
@@ -656,7 +677,7 @@
         const annotationSingle = [
             {
                 note: {
-                    label: "Single-hit scenario"
+                    label: "Escenario de un solo brote"
                 },
                 x: x(dateParser("2021-Q1")),
                 y: y(annotationMark[0].singleHit),
@@ -711,7 +732,7 @@
          const annotationDouble = [
             {
                 note: {
-                    label: "Double-hit scenario"
+                    label: "Escenario con segundo brote"
                 },
                 x: x(dateParser("2021-Q1")),
                 y: y(annotationMark[0].doubleHit),
@@ -763,13 +784,13 @@
 
                     // return appropriate quarter for that month
                     if (mon <= 2) {
-                        return yr + "-Q1";
+                        return "1T-" + yr ;
                     } else if (mon <= 5) {
-                        return yr + "-Q2";
+                        return "2T-" + yr ;
                     } else if (mon <= 8) {
-                        return yr + "-Q3";
+                        return "3T-"+ yr ;
                     } else {
-                        return yr + "-Q4";
+                        return "4T-" + yr ;
                     }
                 }));
 
@@ -955,7 +976,7 @@
         const annotation2019 = [
             {
                 note: {
-                    label: "November 2019 forecasts"
+                    label: "Previsiones de noviembre 2019"
                 },
                 x: x(dateParser("2020-Q1")),
                 y: y(annotationMark2019[0].forecast2019),
@@ -966,7 +987,7 @@
         const annotationDown = [
             {
                 note: {
-                    label: "With weaker confidence"
+                    label: "Escenario a la baja"
 
                 },
                 x: x(dateParser("2021-Q1")),
@@ -978,7 +999,7 @@
         const annotationUp = [
             {
                 note: {
-                    label: "With stronger confidence"
+                    label: "Escenario al alza"
                 },
                 x: x(dateParser("2021-Q1")),
                 y: y(annotationMark[0].upsideScenario),
@@ -991,7 +1012,7 @@
         const annotationCurrent = [
             {
                 note: {
-                    label: "Current forecasts"
+                    label: "Previsiones actuales"
                 },
                 x: x(dateParser("2021-Q1")),
                 y: y(annotationMark[0].currentProjection),
@@ -1035,7 +1056,7 @@
             .append("g")
             .attr("class", "labelLine")
             .call(makeAnnotationCurrent)
-//adding uncertainty note
+        //adding uncertainty note
         const annotationUncertainty = [
             {
                 note: {
@@ -1049,12 +1070,30 @@
         ]
 
         // Add annotation to the chart
-      /*  const makeAnnotationUncertainty = d3.annotation()
+        /*  const makeAnnotationUncertainty = d3.annotation()
             .annotations(annotationUncertainty)
         scenarioSVG
             .append("g")
             .attr("class", "labelLine")
             .call(makeAnnotationUncertainty)*/
+
+        // Add you are here line
+        const annotationPosition = [{
+                note: {
+                    label: "Estamos aquí",
+                },
+                type: d3.annotationCalloutCircle,
+                subject: { radius: 10 },
+                x: x(dateParser("2020-Q3")), y: y(annotationMarkPosition[0].currentProjection) ,
+                dx: -15
+            }]
+
+        const makeAnnotationPosition = d3.annotation()
+            .annotations(annotationPosition)
+        scenarioSVG
+            .append("g")
+            .attr("class", "labelLine")
+            .call(makeAnnotationPosition)
 
     }
 
