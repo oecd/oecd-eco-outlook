@@ -140,6 +140,7 @@
         annotationMark2019 = scenarioData.filter(function (d) { return  d.TIME == "2020-Q1"; });
         annotationMarkPosition = scenarioData.filter(function (d) { return d.TIME == "2020-Q3"; });
         annotationJuneForecast= scenarioData.filter(function (d) { return d.TIME == "2021-Q4" ; });
+        annotationWeAreHere = scenarioData.filter(function (d) { return d.TIME == "2020-Q4"; });
 
         renderChart();
 
@@ -183,7 +184,7 @@
             .append("rect")
             .attr("class", "oldforecast")
             .attrs({ x: 0, y: 0, width: width, height: height, fill: '#deeaf1' })
-            .attr("opacity",0.8)
+            .attr("opacity",0.6)
 
         scenarioSVG
             .append("path")
@@ -373,17 +374,14 @@
 
         // Add you are here line
         const annotationPosition = [{
-                note: {
-                    label: "Das Double-Hit-Szenario vom Juni und das aktuelle Abwärtsszenario gleichen sich an",
-                },
                 type: d3.annotationCalloutCircle,
-                subject: { radius: 10 },
-                x: x(dateParser("2021-Q4")), y: y(annotationJuneForecast[0].doubleHit) ,
-                dx: 45
+                subject: { radius: 25 },
+                x: x(dateParser("2021-Q4")), y: y(annotationJuneForecast[0].doubleHit) 
             }]
 
         const makeAnnotationPosition = d3.annotation()
             .annotations(annotationPosition)
+                .disable (["connector"])
         scenarioSVG
             .append("g")
             .attr("class", "oldforecast")
@@ -718,6 +716,24 @@
             .append("g")
             .attr("class", "labelLine")
             .call(makeAnnotationUncertainty)*/
+
+        // Add you are here line
+        const annotationPosition = [{
+                note: {
+                    label: "Wir sind hier",
+                },
+                type: d3.annotationCalloutCircle,
+                subject: { radius: 10 },
+                x: x(dateParser("2020-Q4")), y: y(annotationWeAreHere[0].currentProjection) ,
+                dx: -15,dy: -5
+            }]
+
+        const makeAnnotationPosition = d3.annotation()
+            .annotations(annotationPosition)
+        scenarioSVG
+            .append("g")
+            .attr("class", "labelLine")
+            .call(makeAnnotationPosition)
 
 
 
