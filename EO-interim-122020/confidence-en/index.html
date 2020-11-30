@@ -29,7 +29,7 @@
     <h2>World GDP, index 2019-Q4=100</h2>
     <img id="Share" src="img/share.svg" alt="share">
     <div id="switchHolder">
-        <id id="sliderText">Where are we compared to June forecasts:</id>
+        <id id="sliderText">Where are we compared to June forecasts?</id>
         <label class="switch">
             <input id="switchID" type="checkbox" >
             <span class="slider round"></span>
@@ -296,10 +296,10 @@
         const annotationSingle = [
             {
                 note: {
-                    label: "Single-hit scenario"
+                    label: "June single-hit scenario"
                 },
-                x: x(dateParser("2021-Q4")),
-                y: y(annotationJuneForecast[0].singleHit),
+                x: x(dateParser("2021-Q3")),
+                y: y(annotationMark[0].singleHit),
                 dy: -10,
                 dx: -10
             }
@@ -351,10 +351,10 @@
          const annotationDouble = [
             {
                 note: {
-                    label: "June Double-hit scenario. The current downside scenario only align with the double-hit one in Q4-2021 "
+                    label: "June double-hit scenario "
                 },
-                x: x(dateParser("2021-Q4")),
-                y: y(annotationJuneForecast[0].doubleHit),
+                x: x(dateParser("2021-Q3")),
+                y: y(annotationMark[0].doubleHit),
                 dy: 20,
                 dx: 10
             }
@@ -363,10 +363,33 @@
         const makeAnnotationDouble = d3.annotation()
             .annotations(annotationDouble)
 
+
         scenarioSVG
             .append("g")
             .attr("class", "oldforecast")
-            .call(makeAnnotationDouble)    
+            .call(makeAnnotationDouble)  
+            
+            
+
+        // Add you are here line
+        const annotationPosition = [{
+                note: {
+                    label: "June double-hit and current downside scenarios align",
+                },
+                type: d3.annotationCalloutCircle,
+                subject: { radius: 10 },
+                x: x(dateParser("2021-Q4")), y: y(annotationJuneForecast[0].doubleHit) ,
+                dx: 25
+            }]
+
+        const makeAnnotationPosition = d3.annotation()
+            .annotations(annotationPosition)
+        scenarioSVG
+            .append("g")
+            .attr("class", "oldforecast")
+            .call(makeAnnotationPosition)
+
+
     } 
 
     function removelines(){
@@ -696,23 +719,7 @@
             .attr("class", "labelLine")
             .call(makeAnnotationUncertainty)*/
 
-        // Add you are here line
-        const annotationPosition = [{
-                note: {
-                    label: "We are here",
-                },
-                type: d3.annotationCalloutCircle,
-                subject: { radius: 10 },
-                x: x(dateParser("2020-Q3")), y: y(annotationMarkPosition[0].currentProjection) ,
-                dx: -15
-            }]
 
-        /*const makeAnnotationPosition = d3.annotation()
-            .annotations(annotationPosition)
-        scenarioSVG
-            .append("g")
-            .attr("class", "labelLine")
-            .call(makeAnnotationPosition)*/
 
     }
 
