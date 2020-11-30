@@ -27,10 +27,9 @@
     <body>
     <!--<h1>OECD Economic Outlook September 2020</h1>-->
     <h2>World GDP, index 2019-Q4=100</h2>
-    <!--<div id="player"><img id="Play" src="img/triangle-right.svg" alt="Play button"> Play the story</div>-->
     <img id="Share" src="img/share.svg" alt="share">
     <div id="switchHolder">
-        <id id="sliderText">Compare with June forecasts:</id>
+        <id id="sliderText">Where are we compared to June forecasts:</id>
         <label class="switch">
             <input id="switchID" type="checkbox" >
             <span class="slider round"></span>
@@ -38,7 +37,6 @@
     </div>
     <br/>
     <div id="scenario" alt=""></div>
-    <!--<div id="explainer"></div>-->
     <div id="source" class="source">Source: <a class="source" href="https://doi.org/10.1787/eo-data-en" target="_blank">OECD (2020), "OECD (2020), OECD Economic Outlook, Volume 2020 Issue 2", OECD Economic Outlook: Statistics and Projections (database)</a>. </div>
     <div id="shareLink">
         <div id="shutterholdertracker">
@@ -141,392 +139,13 @@
         annotationMark= scenarioData.filter(function (d) { return d.TIME == "2021-Q3" ; });
         annotationMark2019 = scenarioData.filter(function (d) { return  d.TIME == "2020-Q1"; });
         annotationMarkPosition = scenarioData.filter(function (d) { return d.TIME == "2020-Q3"; });
+        annotationJuneForecast= scenarioData.filter(function (d) { return d.TIME == "2021-Q4" ; });
 
         renderChart();
 
 
     }
-     function updateChart() {
-        document.getElementById("player").style.display = "none";
-        scenarioSVG.selectAll("*").remove()
 
-        x.domain(d3.extent(allScenario, function (d) { return dateParser(d.TIME); }))
-        y.domain([d3.min(allScenario, function (d) { return d3.min([parseFloat(d.forecast2019), parseFloat(d.singleHit), parseFloat(d.doubleHit), parseFloat(d.currentScenario), parseFloat(d.upsideScenario), parseFloat(d.downsideScenario)]); }), d3.max(allScenario, function (d) { return d3.max([parseFloat(d.forecast2019), parseFloat(d.singleHit), parseFloat(d.doubleHit), parseFloat(d.currentScenario), parseFloat(d.upsideScenario), parseFloat(d.downsideScenario)]); })])
-
-
-
-        scenarioSVG
-            .append("g")
-            .attr("class", "axisContext")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x).ticks(6)
-                .tickFormat(function (x) {
-                    // get the milliseconds since Epoch for the date
-                    var milli = (x + 7884000000);
-
-                    // calculate new date 10 seconds earlier. Could be one second, 
-                    // but I like a little buffer for my neuroses
-                    var vanilli = new Date(milli);
-
-                    // calculate the month (0-11) based on the new date
-                    var mon = vanilli.getMonth();
-                    var yr = vanilli.getFullYear();
-
-                    // return appropriate quarter for that month
-                    if (mon <= 2) {
-                        return yr + "-Q1";
-                    } else if (mon <= 5) {
-                        return yr + "-Q2";
-                    } else if (mon <= 8) {
-                        return yr + "-Q3";
-                    } else {
-                        return yr + "-Q4";
-                    }
-                }));
-
-        scenarioSVG.append("g")
-            .attr("class", "axisContext")
-            .call(d3.axisLeft(y).tickFormat(function (d) {
-                return y.tickFormat(10, d3.format(".0f"))(d)
-            }).tickSize(-(width)));
-
-
-        // Draw the line
-        scenarioSVG
-            .append("path")
-            .attr("fill", "none"/*"#8DCD79"*/)
-            .attr("stroke", function (d) { return color[0] })
-            .attr("stroke-width", "5px")
-           // .attr("opacity", function () { if (k == 0) return 0.1; else return 1; })
-            .attr("class", "lineContext")
-            //.attr("id", function (d) { return "doubleHit" + i; })
-            .attr("d", function (d) {
-                return d3.line()//area
-                    .x(function (d) { return x(dateParser(d.TIME)); })
-                    // .y0(y(0))
-                    .y(function (d) { return y(parseFloat(d.forecast2019)); })
-                    (allScenario.filter(function (d) { return dateParser(d.TIME) <= dateParser(startForecast); }))
-            })
-            .transition()
-            .duration(0)
-            .attrTween("stroke-dasharray", tweenDash)
-            .on("end", drawforecast)
-
-        //document.getElementById('explainer').innerHTML = "This is the total woking hours losts in the 3 first months of the global financial crisis"
-        
-
-
-        // Draw forecast
-        function drawforecast(){             
-        scenarioSVG
-            .append("path")
-            .attr("fill", "none")
-            .attr("stroke", function (d) { return color[0] })
-            .attr("stroke-width", "5px")
-            .attr("opacity",0.5)
-            .attr("d", function (d) {
-                return d3.line()//area
-                    .x(function (d) { return x(dateParser(d.TIME)); })
-                    // .y0(y(0))
-                    .y(function (d) { return y(parseFloat(d.forecast2019)); })
-                    (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(startForecast); }))
-            })
-            .transition()
-            .duration(8000)
-            .attrTween("stroke-dasharray", tweenDash)
-
-            scenarioSVG
-                .append("path")
-                .attr("fill", "none")
-                .attr("stroke-width", "5px")
-                .attr("class","forecast")
-                .transition().delay(7500)
-                .attr("d", function (d) {
-                    return d3.line()//area
-                        .x(function (d) { return x(dateParser(d.TIME)); })
-                        // .y0(y(0))
-                        .y(function (d) { return y(parseFloat(d.forecast2019)); })
-                        (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(startForecast); }))
-                })
-                .on("end", drawCurrentProj)
-
-   
-            document.getElementById('explainer').innerHTML = "This is the evolution of the world GDP as the OECD anticipated it back in November 2019. The Covid-19 crisis has changed everything";
-         
-
-        }
-
-        function drawCurrentProj(){
-            //Draw the uncertainty area/invisible at first made visible later
-            /*scenarioSVG
-                .append("path")
-                .attr("class", "forecast")
-                .attr("id", "uncertaintyArea")
-                .attr("fill", color[2])
-                .attr("stroke-width", "0px")
-                .attr("opacity",0)
-                .attr("d", function (d) {
-                    return d3.area()
-                        .x(function (d) { return x(dateParser(d.TIME)); })
-                        .y0(function (d) { return y(parseFloat(d.downsideScenario)); })
-                        .y1(function (d) { return y(parseFloat(d.upsideScenario)); })
-                        (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(dashedStartForecast); }))
-                })*/
-
-            scenarioSVG
-                .append("path")
-                .attr("fill", "none")
-                .attr("stroke", function (d) { return color[1] })
-                .attr("stroke-width", "5px")
-                .attr("d", function (d) {
-                    return d3.line()//area
-                        .x(function (d) { return x(dateParser(d.TIME)); })
-                        // .y0(y(0))
-                        .y(function (d) { return y(parseFloat(d.currentProjection)); })
-                        (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(startForecast); }))
-                })
-                .transition()
-                .duration(7000)
-                .attrTween("stroke-dasharray", tweenDash)
-
-            scenarioSVG
-                .append("path")
-                .attr("fill", "none")
-                .attr("stroke-width", "5px")
-                .attr("class", "forecast")
-                .transition().delay(6500)
-                .attr("d", function (d) {
-                    return d3.line()//area
-                        .x(function (d) { return x(dateParser(d.TIME)); })
-                        // .y0(y(0))
-                        .y(function (d) { return y(parseFloat(d.currentProjection)); })
-                        (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(dashedStartForecast); }))
-                })
-                .on("end", drawDownSideScenario)
-
-
-            document.getElementById('explainer').innerHTML = "This pink line shows how world GDP has evolved following the COVID-crisis and how the OECD anticipates it growing.";
-            
-
-        } 
-
-
-        function drawDownSideScenario(){
-
-            scenarioSVG
-                .append("path")
-                .attr("fill", "none")
-                .attr("stroke", function (d) { return color[2] })
-                .attr("stroke-width", "3px")
-                .attr("d", function (d) {
-                    return d3.line()//area
-                        .x(function (d) { return x(dateParser(d.TIME)); })
-                        // .y0(y(0))
-                        .y(function (d) { return y(parseFloat(d.downsideScenario)); })
-                        (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(startForecast2); }))
-                })
-                .transition()
-                .duration(8000)
-                .attrTween("stroke-dasharray", tweenDash)
-
-            scenarioSVG
-                .append("path")
-                .attr("fill", "none")
-                .attr("stroke-width", "3px")
-                .attr("class", "forecast")
-                .transition().delay(7500)
-                .attr("d", function (d) {
-                    return d3.line()//area
-                        .x(function (d) { return x(dateParser(d.TIME)); })
-                        // .y0(y(0))
-                        .y(function (d) { return y(parseFloat(d.downsideScenario)); })
-                        (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(dashedStartForecast); }))
-                })
-
-                .on("end", drawUpsideScenario)
-            
-            document.getElementById('explainer').innerHTML = "But a stronger resurgence of the virus, or more stringent lockdowns could strongly impact global growth in 2021.";
-            
-
-        }
-
-        function drawUpsideScenario() {
-
-            scenarioSVG
-                .append("path")
-                .attr("fill", "none")
-                .attr("stroke", function (d) { return color[2] })
-                .attr("stroke-width", "3px")
-                .attr("d", function (d) {
-                    return d3.line()//area
-                        .x(function (d) { return x(dateParser(d.TIME)); })
-                        // .y0(y(0))
-                        .y(function (d) { return y(parseFloat(d.upsideScenario)); })
-                        (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(startForecast2); }))
-                })
-                .transition()
-                .duration(8000)
-                .attrTween("stroke-dasharray", tweenDash)
-
-            scenarioSVG
-                .append("path")
-                .attr("fill", "none")
-                .attr("stroke-width", "3px")
-                .attr("class", "forecast")
-                .transition().delay(7500)
-                .attr("d", function (d) {
-                    return d3.line()//area
-                        .x(function (d) { return x(dateParser(d.TIME)); })
-                        // .y0(y(0))
-                        .y(function (d) { return y(parseFloat(d.upsideScenario)); })
-                        (allScenario.filter(function (d) { return dateParser(d.TIME) >= dateParser(dashedStartForecast); }))
-                })
-
-                .on("end", annotate)
-
-           
-
-            document.getElementById('explainer').innerHTML = "If the threat from the virus fades more quickly than expected, improved consumer confidence could boost global activity sharply in 2021.";
-
-
-        } 
-
-        function annotate(){
-            //make uncertainty area visible
-             scenarioSVG.select("#uncertaintyArea")
-                .attr("opacity", 0.2);
-
-          // Features of the annotation
-            const annotation2019 = [
-                {
-                    note: {
-                        label: "November 2019 forecasts"
-                    },
-                    x: x(dateParser("2020-Q1")),
-                    y: y(annotationMark2019[0].forecast2019),
-                    dy: -25,
-                    dx: 5
-                }
-            ]
-            const annotationDown = [
-                {
-                    note: {
-                        label: "Downside scenario"
-                        
-                    },
-                    x: x(dateParser("2021-Q3")),
-                    y: y(annotationMark[0].downsideScenario),
-                    dy: 40,
-                    dx: -50
-                }
-            ]
-            const annotationUp = [
-                {
-                    note: {
-                        label: "Upside scenario"
-                    },
-                    x: x(dateParser("2021-Q3")),
-                    y: y(annotationMark[0].upsideScenario),
-                    dy: -10,
-                    dx: -20
-                }
-            ]
-
-
-            const annotationCurrent = [
-                {
-                    note: {
-                        label: "Current forecasts"
-                    },
-                    x: x(dateParser("2021-Q3")),
-                    y: y(annotationMark[0].currentProjection),
-                    dy: 10,
-                    dx: 20
-                }
-            ]
-            // Add annotation to the chart
-            const makeAnnotation2019 = d3.annotation()
-                .annotations(annotation2019)
-            scenarioSVG
-                .append("g")
-                .attr("class", "labelLine")
-                .call(makeAnnotation2019)
-
-            // Add annotation to the chart
-            const makeAnnotationDown = d3.annotation()
-                .annotations(annotationDown)
-            scenarioSVG
-                .append("g")
-                .attr("class", "labelLine")
-                .call(makeAnnotationDown)
-
-            // Add annotation to the chart
-            const makeAnnotationUp = d3.annotation()
-                .annotations(annotationUp)
-            scenarioSVG
-                .append("g")
-                .attr("class", "labelLine")
-                .call(makeAnnotationUp)
-
-
-            // Add annotation to the chart
-            const makeAnnotationCurrent = d3.annotation()
-                .annotations(annotationCurrent)
-            scenarioSVG
-                .append("g")
-                .attr("class", "labelLine")
-                .call(makeAnnotationCurrent)
-
-            //adding uncertainty note
-            const annotationUncertainty = [
-                {
-                    note: {
-                        label: "Uncertainty area"
-                    },
-                    x: x(dateParser("2021-Q4")),
-                    y: y((parseFloat(annotationMark[0].upsideScenario) + parseFloat(annotationMark[0].downsideScenario)) / 1.975),
-                    dy: 100,
-                    dx: -0.5
-                }
-            ]
-
-            // Add annotation to the chart
-
-         /*   const makeAnnotationUncertainty = d3.annotation()
-                .annotations(annotationUncertainty)
-            scenarioSVG
-                .append("g")
-                .attr("class", "labelLine")
-                .call(makeAnnotationUncertainty)*/
-
-
-            // Add you are here line
-            const annotationPosition = [{
-                note: {
-                    label: "We are here",
-                },
-                type: d3.annotationCalloutCircle,
-                subject: { radius: 10 },
-                x: x(dateParser("2020-Q3")), y: y(annotationMarkPosition[0].currentProjection),
-                dx: -15
-            }]
-
-            /*const makeAnnotationPosition = d3.annotation()
-                .annotations(annotationPosition)
-            scenarioSVG
-                .append("g")
-                .attr("class", "labelLine")
-                .call(makeAnnotationPosition)*/
-
-             document.getElementById('explainer').innerHTML = "";
-            
-
-            document.getElementById("player").style.display = "inline-block";
-
-        }
-    }
-
-    d3.select("#player").on("click", updateChart)
 
     d3.select("#Share").on("click", function () {
         document.getElementById("shareLink").style.display = "inline-block";
@@ -563,7 +182,7 @@
         scenarioSVG
             .append("rect")
             .attr("class", "oldforecast")
-            .attrs({ x: 0, y: 0, width: width, height: height, fill: '#dce2e7' })
+            .attrs({ x: 0, y: 0, width: width, height: height, fill: '#deeaf1' })
             .attr("opacity",0.8)
 
         scenarioSVG
@@ -679,8 +298,8 @@
                 note: {
                     label: "Single-hit scenario"
                 },
-                x: x(dateParser("2021-Q3")),
-                y: y(annotationMark[0].singleHit),
+                x: x(dateParser("2021-Q4")),
+                y: y(annotationJuneForecast[0].singleHit),
                 dy: -10,
                 dx: -10
             }
@@ -732,10 +351,10 @@
          const annotationDouble = [
             {
                 note: {
-                    label: "Double-hit scenario"
+                    label: "June Double-hit scenario. The current downside scenario only align with the double-hit one in Q4-2021 "
                 },
-                x: x(dateParser("2021-Q3")),
-                y: y(annotationMark[0].doubleHit),
+                x: x(dateParser("2021-Q4")),
+                y: y(annotationJuneForecast[0].doubleHit),
                 dy: 20,
                 dx: 10
             }
