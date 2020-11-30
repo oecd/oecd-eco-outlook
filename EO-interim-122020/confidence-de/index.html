@@ -25,12 +25,11 @@
     </head>
 
     <body>
-    <!--<h1>Perspectives économiques de l'OCDE, septembre 2020</h1>-->
-    <h2>PIB mondial, indice 2019-Q4=100</h2>
-    <!--<div id="player"><img id="Play" src="img/triangle-right.svg" alt="Play button"> Voir l’animation</div>-->
+    <!--<h1>OECD Economic Outlook September 2020</h1>-->
+    <h2>Weltweites BIP, Index 2019-Q4</h2>
     <img id="Share" src="img/share.svg" alt="share">
     <div id="switchHolder">
-        <id id="sliderText">Comparer avec les prévisions de juin :</id>
+        <id id="sliderText">Wo stehen wir im Vergleich zur Juni-Prognose?</id>
         <label class="switch">
             <input id="switchID" type="checkbox" >
             <span class="slider round"></span>
@@ -38,30 +37,28 @@
     </div>
     <br/>
     <div id="scenario" alt=""></div>
-    <!--<div id="explainer"></div>-->
-    <div id="source" class="source">Sources: <a class="source" href="https://doi.org/10.1787/eo-data-en" target="_blank">OCDE (2020), "Perspectives économiques de l'OCDE, Volume 2020 Numéro 2", Perspectives économiques de
-    l'OCDE : Statistiques et projections (base de données)</a>. </div>
+    <div id="source" class="source">Quelle: <a class="source" href="https://doi.org/10.1787/eo-data-en" target="_blank">OECD (2020), “OECD (2020), OECD-Wirtschaftsausblick, Herbstausgabe 2020“, OECD-Wirtschaftsausblick: Statistiken und Projektionen (Datenbank)</a>. </div>
     <div id="shareLink">
         <div id="shutterholdertracker">
             <img id="shuttershare" src="img/cross.svg">
             <div id="trackersText">
-                <b>Copier le lien :</b><Br />
-                <span>https://oecd.github.io/oecd-eco-outlook/EO-interim-122020/confidence-fr/</span><Br />
-                <b>Intégrer le lien :</b><Br />
+                <b>Link kopieren:</b><Br />
+                <span>https://oecd.github.io/oecd-eco-outlook/EO-interim-122020/confidence-en/</span><Br />
+                <b>Link einbetten:</b><Br />
                 <textarea
-                    readonly><iframe src="https://oecd.github.io/oecd-eco-outlook/EO-interim-122020/confidence-fr/" width="100%" height="500px" style="border:none;"></iframe></textarea>
+                    readonly><iframe src="https://oecd.github.io/oecd-eco-outlook/EO-interim-122020/confidence-en//" width="100%" height="500px" style="border:none;"></iframe></textarea>
     
             </div>
         </div>
     </div>
     <script type="text/javascript">
 
-            var startChart = "2019-Q4";
-            var startForecast = "2019-Q4";
+        var startChart = "2019-Q4";
+        var startForecast = "2019-Q4";
             var startForecast2 = "2020-Q4";
-            var dashedStartForecast = "2020-Q4";
-            var dashedStartpreviousForecast = "2020-Q1";
-            var annotationMark = [];
+        var dashedStartForecast = "2020-Q4";
+        var dashedStartpreviousForecast = "2020-Q1";
+        var annotationMark=[];
 
 
     var allScenario;
@@ -70,7 +67,7 @@
     var divMap = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0); 
-    var color = ["#8EA4B1", "#f63ba8", "#ff9cfb", "#4a9ee7", "#002057", "#a154a1", "#719E24"];
+    var color = ["#8EA4B1", "#f63ba8","#ff9cfb", "#4a9ee7", "#002057",  "#a154a1", "#719E24"];
 
     var margin = { top: 30, right: 50, bottom: 30, left: 40 };
 
@@ -148,7 +145,7 @@
 
 
     }
-    
+
 
     d3.select("#Share").on("click", function () {
         document.getElementById("shareLink").style.display = "inline-block";
@@ -240,7 +237,7 @@
         const annotation2019 = [
             {
                 note: {
-                    label: "Prévisions de novembre 2019"
+                    label: "Prognose vom November 2019"
                 },
                 x: x(dateParser("2020-Q1")),
                 y: y(annotationMark2019[0].forecast2019),
@@ -299,7 +296,7 @@
         const annotationSingle = [
             {
                 note: {
-                    label: "Scénario du choc unique (juin)"
+                    label: "Single-Hit-Szenario vom Juni"
                 },
                 x: x(dateParser("2021-Q3")),
                 y: y(annotationMark[0].singleHit),
@@ -354,7 +351,7 @@
          const annotationDouble = [
             {
                 note: {
-                    label: "Scénario du double choc (juin)"
+                    label: "Double-Hit-Szenario vom Juni"
                 },
                 x: x(dateParser("2021-Q3")),
                 y: y(annotationMark[0].doubleHit),
@@ -366,12 +363,14 @@
         const makeAnnotationDouble = d3.annotation()
             .annotations(annotationDouble)
 
+
         scenarioSVG
             .append("g")
             .attr("class", "oldforecast")
-            .call(makeAnnotationDouble)    
+            .call(makeAnnotationDouble)  
+            
+            
 
-    
         // Add you are here line
         const annotationPosition = [{
                 note: {
@@ -389,6 +388,7 @@
             .append("g")
             .attr("class", "oldforecast")
             .call(makeAnnotationPosition)
+
 
     } 
 
@@ -618,7 +618,7 @@
         const annotation2019 = [
             {
                 note: {
-                    label: "Prévisions de novembre 2019"
+                    label: "Prognose vom November 2019"
                 },
                 x: x(dateParser("2020-Q1")),
                 y: y(annotationMark2019[0].forecast2019),
@@ -629,7 +629,7 @@
         const annotationDown = [
             {
                 note: {
-                    label: "Scénario défavorable"
+                    label: "Abwärtsszenario"
 
                 },
                 x: x(dateParser("2021-Q3")),
@@ -641,7 +641,7 @@
         const annotationUp = [
             {
                 note: {
-                    label: "Scénario favorable"
+                    label: "Aufwärtsszenario"
                 },
                 x: x(dateParser("2021-Q3")),
                 y: y(annotationMark[0].upsideScenario),
@@ -654,7 +654,7 @@
         const annotationCurrent = [
             {
                 note: {
-                    label: "Prévisions actuelles"
+                    label: "Aktuelle Prognose"
                 },
                 x: x(dateParser("2021-Q3")),
                 y: y(annotationMark[0].currentProjection),
@@ -719,23 +719,7 @@
             .attr("class", "labelLine")
             .call(makeAnnotationUncertainty)*/
 
-        // Add you are here line
-        const annotationPosition = [{
-                note: {
-                    label: "Nous sommes ici",
-                },
-                type: d3.annotationCalloutCircle,
-                subject: { radius: 10 },
-                x: x(dateParser("2020-Q3")), y: y(annotationMarkPosition[0].currentProjection) ,
-                dx: -15
-            }]
 
-        /*const makeAnnotationPosition = d3.annotation()
-            .annotations(annotationPosition)
-        scenarioSVG
-            .append("g")
-            .attr("class", "labelLine")
-            .call(makeAnnotationPosition)*/
 
     }
 
