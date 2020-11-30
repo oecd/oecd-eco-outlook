@@ -299,10 +299,10 @@
         const annotationSingle = [
             {
                 note: {
-                    label: "Scénario du choc unique"
+                    label: "Scénario du choc unique (juin)"
                 },
-                x: x(dateParser("2021-Q4")),
-                y: y(annotationJuneForecast[0].singleHit),
+                x: x(dateParser("2021-Q3")),
+                y: y(annotationMark[0].singleHit),
                 dy: -10,
                 dx: -10
             }
@@ -354,10 +354,10 @@
          const annotationDouble = [
             {
                 note: {
-                    label: "Scénario du double choc"
+                    label: "Scénario du double choc (juin)"
                 },
-                x: x(dateParser("2021-Q4")),
-                y: y(annotationJuneForecast[0].doubleHit),
+                x: x(dateParser("2021-Q3")),
+                y: y(annotationMark[0].doubleHit),
                 dy: 20,
                 dx: 10
             }
@@ -370,6 +370,26 @@
             .append("g")
             .attr("class", "oldforecast")
             .call(makeAnnotationDouble)    
+
+    
+        // Add you are here line
+        const annotationPosition = [{
+                note: {
+                    label: "June double-hit and current downside scenarios align",
+                },
+                type: d3.annotationCalloutCircle,
+                subject: { radius: 10 },
+                x: x(dateParser("2021-Q4")), y: y(annotationJuneForecast[0].doubleHit) ,
+                dx: 30
+            }]
+
+        const makeAnnotationPosition = d3.annotation()
+            .annotations(annotationPosition)
+        scenarioSVG
+            .append("g")
+            .attr("class", "oldforecast")
+            .call(makeAnnotationPosition)
+
     } 
 
     function removelines(){

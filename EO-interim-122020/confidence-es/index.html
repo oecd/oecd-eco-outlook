@@ -243,7 +243,7 @@
                 x: x(dateParser("2020-Q1")),
                 y: y(annotationMark2019[0].forecast2019),
                 dy: -25,
-                dx: -5
+                dx: 5
             }
         ]
 
@@ -297,10 +297,10 @@
         const annotationSingle = [
             {
                 note: {
-                    label: "Escenario de un solo brote"
+                    label: "Escenario de un solo brote (junio)"
                 },
-                x: x(dateParser("2021-Q4")),
-                y: y(annotationJuneForecast[0].singleHit),
+                x: x(dateParser("2021-Q3")),
+                y: y(annotationMark[0].singleHit),
                 dy: -10,
                 dx: -10
             }
@@ -352,10 +352,10 @@
          const annotationDouble = [
             {
                 note: {
-                    label: "Escenario con segundo brote"
+                    label: "Escenario con segundo brote (junio)"
                 },
-                x: x(dateParser("2021-Q4")),
-                y: y(annotationJuneForecast[0].doubleHit),
+                x: x(dateParser("2021-Q3")),
+                y: y(annotationMark[0].doubleHit),
                 dy: 20,
                 dx: 10
             }
@@ -368,6 +368,26 @@
             .append("g")
             .attr("class", "oldforecast")
             .call(makeAnnotationDouble)    
+
+
+        // Add you are here line
+        const annotationPosition = [{
+                note: {
+                    label: "June double-hit and current downside scenarios align",
+                },
+                type: d3.annotationCalloutCircle,
+                subject: { radius: 10 },
+                x: x(dateParser("2021-Q4")), y: y(annotationJuneForecast[0].doubleHit) ,
+                dx: 30
+            }]
+
+        const makeAnnotationPosition = d3.annotation()
+            .annotations(annotationPosition)
+        scenarioSVG
+            .append("g")
+            .attr("class", "oldforecast")
+            .call(makeAnnotationPosition)
+
     } 
 
     function removelines(){
